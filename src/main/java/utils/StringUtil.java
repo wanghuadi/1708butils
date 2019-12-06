@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -31,6 +32,14 @@ public class StringUtil {
 		return str.matches(regex);
 	}
 	
+	/**
+	 * 判断List、Set之类的对象是否有值，对象为空算没值
+	 * @param src
+	 * @return
+	 */
+	public static boolean isEmpty(Collection<?> src){
+		return src.isEmpty();
+	}
 	/**
 	 * 判断是否为电子邮箱
 	 * @param str
@@ -119,6 +128,27 @@ public class StringUtil {
 	
 	
 	/**
+	 * 判断参数是否为数字，包含小数
+	 * @param str
+	 * @return
+	 */
+	public static boolean isFloat(String str){
+		boolean blank = StringUtil.isEmpty(str);
+		if(!blank){
+			Pattern pattern = Pattern.compile("^\\d+\\.?\\d*$");
+			Matcher matcher = pattern.matcher(str);
+			if(matcher.matches()){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	}
+	
+	
+	/**
 	 * 获取n个随机中文字符串
 	 * @return
 	 */
@@ -143,8 +173,7 @@ public class StringUtil {
   }
 	
 	public static void main(String[] args) {
-		System.out.println(getAChinese());
-		
+		System.out.println(isFloat("1"));
 	}
 	
 }
